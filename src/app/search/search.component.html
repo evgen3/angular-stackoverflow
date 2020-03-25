@@ -1,0 +1,18 @@
+<form
+  class="app-search"
+  [formGroup]="searchForm"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field class="field" appearance="fill">
+    <mat-label>Query</mat-label>
+    <input type="search" formControlName="query" matInput>
+  </mat-form-field>
+  <button
+    class="button"
+    type="submit"
+    color="primary"
+    mat-raised-button
+  >
+    Search
+  </button>
+</form>
