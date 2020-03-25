@@ -1,1 +1,22 @@
-<p>results works!</p>
+<div class="app-results">
+  <table class="table" mat-table [dataSource]="questions">
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef>Author</th>
+      <td mat-cell *matCellDef="let question">{{ question.author }}</td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let question">{{ question.title }}</td>
+    </ng-container>
+    <ng-container matColumnDef="answers">
+      <th mat-header-cell *matHeaderCellDef>Answers</th>
+      <td mat-cell *matCellDef="let question">{{ question.answers }}</td>
+    </ng-container>
+    <ng-container matColumnDef="tags">
+      <th mat-header-cell *matHeaderCellDef>Tags</th>
+      <td mat-cell *matCellDef="let question">{{ question.tags.join(', ') }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
