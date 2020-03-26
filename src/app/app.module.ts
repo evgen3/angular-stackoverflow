@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,13 +19,15 @@ import { AuthComponent } from './auth/auth.component';
 import { SearchComponent } from './search/search.component';
 import { SearchService } from './search/search.service';
 import { ResultsComponent } from './search/results/results.component';
+import { InfoComponent } from './search/info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { ResultsComponent } from './search/results/results.component';
     ReactiveFormsModule,
     MatTableModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule
   ],
   providers: [SearchService],
   bootstrap: [AppComponent]

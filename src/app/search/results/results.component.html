@@ -2,19 +2,29 @@
   <table class="table" mat-table [dataSource]="results">
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef>Author</th>
-      <td mat-cell *matCellDef="let result">{{ result.author }}</td>
+      <td mat-cell *matCellDef="let result">
+        <span class="author">👨 {{ result.author }}</span>
+      </td>
     </ng-container>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let result">{{ result.title }}</td>
     </ng-container>
     <ng-container matColumnDef="answers">
-      <th mat-header-cell *matHeaderCellDef>Answers</th>
-      <td mat-cell *matCellDef="let result">{{ result.answers }}</td>
+      <th class="_answers" mat-header-cell *matHeaderCellDef>Answers</th>
+      <td class="_answers" mat-cell *matCellDef="let result">
+        <mat-chip-list>
+          <mat-chip color="warn" selected>{{ result.answers }}</mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
     <ng-container matColumnDef="tags">
       <th mat-header-cell *matHeaderCellDef>Tags</th>
-      <td mat-cell *matCellDef="let result">{{ result.tags.join(', ') }}</td>
+      <td mat-cell *matCellDef="let result">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of result.tags">{{ tag }}</mat-chip>
+        </mat-chip-list>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

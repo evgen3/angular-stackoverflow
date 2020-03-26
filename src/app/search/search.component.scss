@@ -25,3 +25,17 @@
   justify-content: center;
   margin-top: 32px;
 }
+
+.results {
+  display: flex;
+  align-items: flex-start;
+}
+
+.info {
+  flex-shrink: 0;
+  margin-left: 16px;
+  position: sticky;
+  top: 0;
+  padding-top: 16px;
+  width: 320px;
+}

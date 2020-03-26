@@ -20,8 +20,10 @@
   <div *ngIf="searching" class="searching-spinner">
     <mat-spinner diameter="32"></mat-spinner>
   </div>
-  <app-results
-    *ngIf="results.length"
-    [results]="results"
-  ></app-results>
+  <div *ngIf="results.length" class="results">
+    <app-results [results]="results"></app-results>
+    <div class="info">
+      <app-info></app-info>
+    </div>
+  </div>
 </div>
