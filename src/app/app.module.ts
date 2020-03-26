@@ -12,12 +12,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { SearchComponent } from './search/search.component';
-import { SearchService } from './search/search.service';
 import { ResultsComponent } from './search/results/results.component';
 import { InfoComponent } from './search/info/info.component';
 
@@ -43,9 +43,10 @@ import { InfoComponent } from './search/info/info.component';
     MatTableModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
-  providers: [SearchService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

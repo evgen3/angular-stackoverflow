@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { interval, of } from 'rxjs';
 import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
+
 import { SearchService, Result } from './search.service';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
+const notFoundMessage = 'Not found';
+const snackBarDuration = 2000;
 
 @Component({
   selector: 'app-search',
@@ -24,7 +29,8 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -46,8 +52,20 @@ export class SearchComponent implements OnInit {
       switchMap(query => (query ? this.searchService.getResults(query) : of([])))
     )
     .subscribe(results => {
+      const query = this.searchForm.controls.query.value;
+
       this.results = results;
       this.searching = false;
+
+      if (query && !results.length) {
+        this.showNotFound();
+      }
+    });
+  }
+
+  showNotFound() {
+    this.snackBar.open(notFoundMessage, null, {
+      duration: snackBarDuration
     });
   }
 
