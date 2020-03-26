@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { Question } from './results/results.component';
+import { interval, of } from 'rxjs';
+import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { SearchService, Result } from './search.service';
 
 const queryParamName = 'query';
-const questions: Question[] = [
-  {
-    author: 'mikonoid',
-    title: 'How to count word “test” in file on Python?',
-    answers: 5,
-    tags: ['python'],
-  },
-];
+const debouncePeriod = 1000;
 
 @Component({
   selector: 'app-search',
@@ -19,7 +14,8 @@ const questions: Question[] = [
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  questions = questions;
+  results: Result[] = [];
+  searching = false;
   searchForm = this.formBuilder.group({
     query: ''
   });
@@ -27,12 +23,32 @@ export class SearchComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) { }
 
   ngOnInit(): void {
-    const query = this.route.snapshot.queryParamMap.get(queryParamName) ?? '';
-    this.searchForm.controls.query.setValue(query);
+    const query$ = this.route.queryParamMap.pipe(
+      map(params => params.get(queryParamName) ?? '')
+    );
+
+    query$.subscribe(query => {
+      this.searchForm.controls.query.setValue(query);
+    });
+
+    query$.pipe(
+      tap(() => {
+        this.results = [];
+        this.searching = true;
+      }),
+      debounce(query => interval(query ? debouncePeriod : 0)),
+      distinctUntilChanged(),
+      switchMap(query => (query ? this.searchService.getResults(query) : of([])))
+    )
+    .subscribe(results => {
+      this.results = results;
+      this.searching = false;
+    });
   }
 
   onSubmit() {

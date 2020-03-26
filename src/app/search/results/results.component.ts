@@ -1,11 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-export interface Question {
-  author: string;
-  title: string;
-  answers: number;
-  tags: string[];
-}
+import { Result } from '../search.service';
 
 @Component({
   selector: 'app-results',
@@ -13,7 +7,7 @@ export interface Question {
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  @Input() questions: Question[];
+  @Input() results: Result[];
   displayedColumns: string[] = ['author', 'title', 'answers', 'tags'];
   constructor() { }
 

@@ -17,5 +17,11 @@
       Search
     </button>
   </form>
-  <app-results [questions]="questions"></app-results>
+  <div *ngIf="searching" class="searching-spinner">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+  <app-results
+    *ngIf="results.length"
+    [results]="results"
+  ></app-results>
 </div>
