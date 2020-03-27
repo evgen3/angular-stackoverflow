@@ -7,6 +7,7 @@ import { interval, of } from 'rxjs';
 import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { SearchService, Result } from './search.service';
+import { CellInfo } from './results/results.component';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
@@ -24,6 +25,7 @@ export class SearchComponent implements OnInit {
   searchForm = this.formBuilder.group({
     query: ''
   });
+  cellInfo: CellInfo;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,5 +80,9 @@ export class SearchComponent implements OnInit {
     this.router.navigate([], {
       queryParams: query ? queryParams : {},
     });
+  }
+
+  onCellClick(cellInfo: CellInfo) {
+    this.cellInfo = cellInfo;
   }
 }

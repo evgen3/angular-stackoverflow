@@ -21,9 +21,16 @@
     <mat-spinner diameter="32"></mat-spinner>
   </div>
   <div *ngIf="results.length" class="results">
-    <app-results [results]="results"></app-results>
-    <div class="info">
-      <app-info></app-info>
+    <app-results
+      [results]="results"
+      (cellClick)="onCellClick($event)"
+    >
+    </app-results>
+    <div
+      *ngIf="cellInfo"
+      class="info"
+    >
+      <app-results [results]="results"></app-results>
     </div>
   </div>
 </div>

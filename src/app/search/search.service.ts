@@ -3,8 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 export interface Result {
-  author: string;
-  title: string;
+  author: {
+    name: string;
+    id: number;
+  };
+  question: {
+    title: string;
+    id: number;
+  };
   answers: number;
   tags: string[];
 }
@@ -12,7 +18,7 @@ export interface Result {
 const baseUrl = 'https://api.stackexchange.com/2.2';
 const site = 'stackoverflow';
 const filters = {
-  search: '!5RBRwQ1ekWd8W*WwrkkqtYxyW'
+  search: '!*7PYFiX04qF206j0aQZ)4CtQrFbC'
 };
 const paths = {
   search: '/search'
@@ -36,11 +42,17 @@ export class SearchService {
       .get(url, { params })
       .pipe(
         map(({ items }: any): Result[] => items.map((item: any) => ({
-          author: item.owner.display_name,
-          title: item.title,
+          author: {
+            name: item.owner.display_name,
+            id: item.owner.user_id,
+          },
+          question: {
+            id: item.question_id,
+            title: item.title
+          },
           answers: item.answer_count,
           tags: item.tags,
-        })))
+        } as Result)))
       );
   }
 }

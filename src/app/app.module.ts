@@ -13,21 +13,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRippleModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './search/results/results.component';
-import { InfoComponent } from './search/info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SearchComponent,
-    ResultsComponent,
-    InfoComponent
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,8 @@ import { InfoComponent } from './search/info/info.component';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
