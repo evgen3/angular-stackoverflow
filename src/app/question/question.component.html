@@ -1,4 +1,10 @@
-<div class="answers">
+<div *ngIf="loading" class="spinner">
+  <mat-spinner diameter="32"></mat-spinner>
+</div>
+<div
+  *ngIf="answers.length"
+  class="answers"
+>
   <mat-card
     *ngFor="let answer of answers;"
     [matBadge]="answer.rating.toString()"
