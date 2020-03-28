@@ -36,9 +36,9 @@ export class SearchService {
     const { baseUrl, site } = this.apiService;
     const url = `${baseUrl}${path}`;
     const params = {
-      intitle: query,
-      tagged: tag,
-      user: author ? author.id.toString() : '',
+      intitle: query ?? '',
+      tagged: tag ?? '',
+      user: author?.id?.toString() ?? '',
       site,
       filter,
     };
