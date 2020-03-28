@@ -5,14 +5,10 @@
     th.mat-header-cell,
     td.mat-cell,
     td.mat-footer-cell {
-      padding: 8px 24px 8px 0;
-
-      &:last-child {
-        padding-right: 0;
-      }
+      padding: 8px .75em
+    ;
 
       &._answers {
-        padding-left: 24px;
         text-align: center;
 
         .mat-chip-list-wrapper {

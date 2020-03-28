@@ -7,12 +7,13 @@ import { interval, of } from 'rxjs';
 import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { SearchService, Result } from './search.service';
-import { CellInfo } from './results/results.component';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
-const notFoundMessage = 'Not found';
 const snackBarDuration = 2000;
+
+const notFoundMessage = 'Not found';
+const noAnswersMessage = 'No answers';
 
 @Component({
   selector: 'app-search',
@@ -25,7 +26,6 @@ export class SearchComponent implements OnInit {
   searchForm = this.formBuilder.group({
     query: ''
   });
-  cellInfo: CellInfo;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,13 +60,13 @@ export class SearchComponent implements OnInit {
       this.searching = false;
 
       if (query && !results.length) {
-        this.showNotFound();
+        this.showSnackBar(notFoundMessage);
       }
     });
   }
 
-  showNotFound() {
-    this.snackBar.open(notFoundMessage, null, {
+  showSnackBar(message: string) {
+    this.snackBar.open(message, null, {
       duration: snackBarDuration
     });
   }
@@ -82,7 +82,15 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onCellClick(cellInfo: CellInfo) {
-    this.cellInfo = cellInfo;
+  onAuthorClick(id: number) {}
+
+  onQuestionClick({ answers, question }: Result) {
+    if (answers) {
+      this.router.navigate(['/questions', question.id]);
+    } else {
+      this.showSnackBar(noAnswersMessage);
+    }
   }
+
+  onTagClick(tag: string) {}
 }

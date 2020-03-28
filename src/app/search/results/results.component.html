@@ -6,9 +6,7 @@
         *matCellDef="let result"
         matRipple
         mat-cell
-        tabindex="0"
-        [routerLink]="['/questions', result.question.id]"
-        (click)="onAuthorClick(result.author.id)"
+        (click)="authorClick.emit(result.author.id)"
       >
         <span class="author">👨 {{ result.author.name }}</span>
       </td>
@@ -16,11 +14,10 @@
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td
+        *matCellDef="let result"
         matRipple
         mat-cell
-        tabindex="0"
-        *matCellDef="let result"
-        (click)="onQuestionClick(result.question.id)"
+        (click)="questionClick.emit(result)"
       >
         {{ result.question.title }}
       </td>
@@ -36,7 +33,7 @@
           <mat-chip
             color="warn"
             selected
-            (click)="onQuestionClick(result.question.id)"
+            (click)="questionClick.emit(result)"
           >
             {{ result.answers }}
           </mat-chip>
@@ -49,7 +46,7 @@
         <mat-chip-list>
           <mat-chip
             *ngFor="let tag of result.tags"
-            (click)="onTagClick(tag)"
+            (click)="authorClick.emit(tag)"
           >
             {{ tag }}
           </mat-chip>

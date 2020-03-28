@@ -23,7 +23,9 @@
   <div *ngIf="results.length" class="results">
     <app-results
       [results]="results"
-      (cellClick)="onCellClick($event)"
+      (authorClick)="onAuthorClick($event)"
+      (questionClick)="onQuestionClick($event)"
+      (tagClick)="onTagClick($event)"
     >
     </app-results>
     <div
