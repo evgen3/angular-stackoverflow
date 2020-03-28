@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Author } from '../../shared/author';
 import { Result } from '../search.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { Result } from '../search.service';
 })
 export class ResultsComponent implements OnInit {
   @Input() results: Result[];
-  @Output() authorClick = new EventEmitter<number>();
+  @Output() authorClick = new EventEmitter<Author>();
   @Output() questionClick = new EventEmitter<Result>();
   @Output() tagClick = new EventEmitter<string>();
   displayedColumns: string[] = ['author', 'title', 'answers', 'tags'];

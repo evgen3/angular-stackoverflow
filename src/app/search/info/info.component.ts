@@ -1,10 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-
-export interface InfoData {
-  authorId?: number;
-  tag?: string;
-}
+import { Result, SearchService, SearchOptions } from '../search.service';
 
 @Component({
   selector: 'app-info',
@@ -12,8 +8,19 @@ export interface InfoData {
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: InfoData) { }
+  loading = true;
+  results: Result[] = [];
+  constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: SearchOptions,
+    private searchService: SearchService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
+    this.searchService.getResults(this.data).subscribe(results => {
+      this.results = results;
+      this.loading = false;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 }

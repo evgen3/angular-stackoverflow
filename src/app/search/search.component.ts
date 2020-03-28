@@ -7,8 +7,9 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { interval, of } from 'rxjs';
 import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
-import { SearchService, Result } from './search.service';
-import { InfoComponent, InfoData } from './info/info.component';
+import { Author } from '../shared/author';
+import { SearchService, Result, SearchOptions } from './search.service';
+import { InfoComponent } from './info/info.component';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
@@ -54,7 +55,7 @@ export class SearchComponent implements OnInit {
       }),
       debounce(query => interval(query ? debouncePeriod : 0)),
       distinctUntilChanged(),
-      switchMap(query => (query ? this.searchService.getResults(query) : of([])))
+      switchMap(query => (query ? this.searchService.getResults({ query }) : of([])))
     )
     .subscribe(results => {
       const query = this.searchForm.controls.query.value;
@@ -74,7 +75,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  showInfo(data: InfoData) {
+  showInfo(data: SearchOptions) {
     this.bottomSheet.open(InfoComponent, { data });
   }
 
@@ -89,10 +90,8 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onAuthorClick(id: number) {
-    this.showInfo({
-      authorId: id
-    });
+  onAuthorClick(author: Author) {
+    this.showInfo({ author });
   }
 
   onQuestionClick({ answers, question }: Result) {

@@ -6,7 +6,7 @@
         *matCellDef="let result"
         matRipple
         mat-cell
-        (click)="authorClick.emit(result.author.id)"
+        (click)="authorClick.emit(result.author)"
       >
         <span class="author">👨 {{ result.author.name }}</span>
       </td>
@@ -46,7 +46,7 @@
         <mat-chip-list>
           <mat-chip
             *ngFor="let tag of result.tags"
-            (click)="authorClick.emit(tag)"
+            (click)="tagClick.emit(tag)"
           >
             {{ tag }}
           </mat-chip>

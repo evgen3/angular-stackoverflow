@@ -14,8 +14,14 @@ export interface Result {
   tags: string[];
 }
 
+export interface SearchOptions {
+  query?: string;
+  tag?: string;
+  author?: Author;
+}
+
 const filter = '!*7PYFiX04qF206j0aQZ)4CtQrFbC';
-const path = '/search';
+const path = '/search/advanced';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +32,13 @@ export class SearchService {
     private apiService: ApiService
   ) { }
 
-  getResults(query = '') {
+  getResults({ query, tag, author }: SearchOptions) {
     const { baseUrl, site } = this.apiService;
     const url = `${baseUrl}${path}`;
     const params = {
       intitle: query,
+      tagged: tag,
+      user: author ? author.id.toString() : '',
       site,
       filter,
     };
