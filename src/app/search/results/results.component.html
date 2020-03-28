@@ -3,10 +3,11 @@
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef>Author</th>
       <td
+        *matCellDef="let result"
         matRipple
         mat-cell
         tabindex="0"
-        *matCellDef="let result"
+        [routerLink]="['/questions', result.question.id]"
         (click)="onAuthorClick(result.author.id)"
       >
         <span class="author">👨 {{ result.author.name }}</span>

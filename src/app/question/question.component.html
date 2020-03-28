@@ -1,0 +1,11 @@
+<div class="answers">
+  <mat-card
+    *ngFor="let answer of answers;"
+    [matBadge]="answer.rating.toString()"
+    class="answer"
+    matBadgePosition="before"
+    matBadgeColor="accent"
+  >
+    <div [innerHTML]="answer.body"></div>
+  </mat-card>
+</div>

@@ -14,19 +14,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRippleModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './search/results/results.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { ResultsComponent } from './search/results/results.component';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSnackBarModule,
-    MatRippleModule
+    MatRippleModule,
+    MatDividerModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

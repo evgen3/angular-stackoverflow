@@ -1,0 +1,12 @@
+.answers {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.answer {
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

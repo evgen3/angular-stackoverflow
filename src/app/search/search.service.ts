@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ApiService } from '../shared/api.service';
 
 export interface Result {
   author: {
@@ -15,27 +16,25 @@ export interface Result {
   tags: string[];
 }
 
-const baseUrl = 'https://api.stackexchange.com/2.2';
-const site = 'stackoverflow';
-const filters = {
-  search: '!*7PYFiX04qF206j0aQZ)4CtQrFbC'
-};
-const paths = {
-  search: '/search'
-};
+const filter = '!*7PYFiX04qF206j0aQZ)4CtQrFbC';
+const path = '/search';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService
+  ) { }
 
   getResults(query = '') {
-    const url = `${baseUrl}${paths.search}`;
+    const { baseUrl, site } = this.apiService;
+    const url = `${baseUrl}${path}`;
     const params = {
       intitle: query,
-      filter: filters.search,
       site,
+      filter,
     };
 
     return this.http
