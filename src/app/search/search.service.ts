@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../shared/api.service';
+import { Author } from '../shared/author';
 
 export interface Result {
-  author: {
-    name: string;
-    id: number;
-  };
+  author: Author;
   question: {
     title: string;
     id: number;

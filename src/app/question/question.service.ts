@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../shared/api.service';
+import { Author } from '../shared/author';
 
 export interface Answer {
   body: string;
   rating: number;
+  author: Author;
+  creationDate: Date;
 }
 
-const filter = '!w-*Ytm8Gt4I*adJsae';
+const filter = '!YOL.*dAz12*Y0tx_wDls4E9vjL';
 const sort = 'votes';
 const getPath = (id: number) => `/questions/${id}/answers`;
 
@@ -32,6 +35,10 @@ export class QuestionService {
         map(({ items }: any): Answer[] => items.map((item: any) => ({
           body: item.body,
           rating: item.up_vote_count,
+          author: {
+            name: item.owner.display_name
+          },
+          creationDate: new Date(item.creation_date * 1000)
         } as Answer)))
       );
   }

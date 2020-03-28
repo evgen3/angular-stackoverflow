@@ -10,8 +10,10 @@
     [matBadge]="answer.rating.toString()"
     class="answer"
     matBadgePosition="before"
-    matBadgeColor="accent"
+    matBadgeColor="warn"
   >
-    <div [innerHTML]="answer.body"></div>
+    <mat-card-title [innerHTML]="answer.author.name"></mat-card-title>
+    <mat-card-subtitle>{{ answer.creationDate.toLocaleString() }}</mat-card-subtitle>
+    <mat-card-content [innerHTML]="answer.body"></mat-card-content>
   </mat-card>
 </div>
