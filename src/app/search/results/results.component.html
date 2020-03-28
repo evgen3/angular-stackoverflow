@@ -8,7 +8,10 @@
         mat-cell
         (click)="authorClick.emit(result.author)"
       >
-        <span class="author">👨 {{ result.author.name }}</span>
+        <span class="author">
+          👨
+          <span [innerHTML]="result.author.name"></span>
+        </span>
       </td>
     </ng-container>
     <ng-container matColumnDef="title">
@@ -17,10 +20,9 @@
         *matCellDef="let result"
         matRipple
         mat-cell
+        [innerHTML]="result.question.title"
         (click)="questionClick.emit(result)"
-      >
-        {{ result.question.title }}
-      </td>
+      ></td>
     </ng-container>
     <ng-container matColumnDef="answers">
       <th class="_answers" mat-header-cell *matHeaderCellDef>Answers</th>
