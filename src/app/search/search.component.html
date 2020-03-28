@@ -20,19 +20,12 @@
   <div *ngIf="searching" class="spinner">
     <mat-spinner diameter="32"></mat-spinner>
   </div>
-  <div *ngIf="results.length" class="results">
-    <app-results
-      [results]="results"
-      (authorClick)="onAuthorClick($event)"
-      (questionClick)="onQuestionClick($event)"
-      (tagClick)="onTagClick($event)"
-    >
-    </app-results>
-    <div
-      *ngIf="false"
-      class="info"
-    >
-      <app-results [results]="results"></app-results>
-    </div>
-  </div>
+  <app-results
+    *ngIf="results.length"
+    [results]="results"
+    (authorClick)="onAuthorClick($event)"
+    (questionClick)="onQuestionClick($event)"
+    (tagClick)="onTagClick($event)"
+  >
+  </app-results>
 </div>

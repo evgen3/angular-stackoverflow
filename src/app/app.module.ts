@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { AuthComponent } from './auth/auth.component';
 import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './search/results/results.component';
 import { QuestionComponent } from './question/question.component';
+import { InfoComponent } from './search/info/info.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { QuestionComponent } from './question/question.component';
     AuthComponent,
     SearchComponent,
     ResultsComponent,
-    QuestionComponent
+    QuestionComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { QuestionComponent } from './question/question.component';
     MatSnackBarModule,
     MatRippleModule,
     MatDividerModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatBottomSheetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

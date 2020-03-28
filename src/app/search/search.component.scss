@@ -25,16 +25,3 @@
   justify-content: center;
   margin-top: 32px;
 }
-
-.results {
-  display: flex;
-  align-items: flex-start;
-}
-
-.info {
-  flex-shrink: 0;
-  margin-left: 16px;
-  position: sticky;
-  top: 0;
-  width: calc(50% - 8px);
-}

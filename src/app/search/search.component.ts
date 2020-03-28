@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 import { interval, of } from 'rxjs';
 import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { SearchService, Result } from './search.service';
+import { InfoComponent, InfoData } from './info/info.component';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
@@ -32,7 +34,8 @@ export class SearchComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private searchService: SearchService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +74,10 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  showInfo(data: InfoData) {
+    this.bottomSheet.open(InfoComponent, { data });
+  }
+
   onSubmit() {
     const query = this.searchForm.controls.query.value;
     const queryParams = {
@@ -82,7 +89,11 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onAuthorClick(id: number) {}
+  onAuthorClick(id: number) {
+    this.showInfo({
+      authorId: id
+    });
+  }
 
   onQuestionClick({ answers, question }: Result) {
     if (answers) {
@@ -92,5 +103,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onTagClick(tag: string) {}
+  onTagClick(tag: string) {
+    this.showInfo({ tag });
+  }
 }
