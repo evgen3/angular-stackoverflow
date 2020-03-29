@@ -4,8 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
-import { interval, of } from 'rxjs';
-import { debounce, map, tap, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, switchMap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import { Author } from '../shared/author';
 import { SearchService, Result, SearchOptions } from './search.service';
@@ -40,26 +40,36 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const query$ = this.route.queryParamMap.pipe(
+    this.route.queryParamMap.pipe(
       map(params => params.get(queryParamName) ?? '')
-    );
-
-    query$.subscribe(query => {
+    ).subscribe(query => {
       this.searchForm.controls.query.setValue(query);
+      this.search(query);
     });
+  }
 
-    query$.pipe(
-      tap(() => {
-        this.results = [];
-        this.searching = true;
-      }),
-      debounce(query => interval(query ? debouncePeriod : 0)),
-      distinctUntilChanged(),
-      switchMap(query => (query ? this.searchService.getResults({ query }) : of([])))
-    )
-    .subscribe(results => {
-      const query = this.searchForm.controls.query.value;
+  search(query: string) {
+    this.results = [];
+    this.searching = true;
 
+    of(query).pipe(
+      switchMap(() => {
+        if (query === this.searchService.cachedQuery) {
+          return of(this.searchService.cachedResults);
+        }
+
+        if (query) {
+          return of(query).pipe(
+            debounceTime(debouncePeriod),
+            distinctUntilChanged(),
+            switchMap(() => this.searchService.getResults({ query }))
+          );
+        }
+
+        return of([]);
+      })
+    ).subscribe(results => {
+      this.searchService.setCached(query, results);
       this.results = results;
       this.searching = false;
 

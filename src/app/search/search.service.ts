@@ -29,6 +29,8 @@ const path = '/search/advanced';
   providedIn: 'root'
 })
 export class SearchService {
+  cachedQuery = '';
+  cachedResults: Result[] = [];
   constructor(
     private http: HttpClient,
     private apiService: ApiService
@@ -63,5 +65,10 @@ export class SearchService {
           tags: item.tags,
         } as Result)))
       );
+  }
+
+  setCached(query: string, results: Result[]) {
+    this.cachedQuery = query;
+    this.cachedResults = results;
   }
 }
