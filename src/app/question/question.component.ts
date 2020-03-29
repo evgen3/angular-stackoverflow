@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap, map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { QuestionService, Answer } from './question.service';
 
 const idParamName = 'id';
@@ -12,7 +12,7 @@ const idParamName = 'id';
 })
 export class QuestionComponent implements OnInit {
   answers: Answer[] = [];
-  loading = false;
+  loading = true;
   constructor(
     private route: ActivatedRoute,
     private questionService: QuestionService
@@ -21,12 +21,13 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .pipe(
-        map(params => +params.get(idParamName)),
-        tap(() => {
-          this.loading = true;
-        }),
-        switchMap(id => this.questionService.getAnswers(id))
+        map(params => +params.get(idParamName))
       )
+      .subscribe(id => this.loadQuestion(id));
+  }
+
+  loadQuestion(id: number) {
+    return this.questionService.getAnswers(id)
       .subscribe(answers => {
         this.answers = answers;
         this.loading = false;
