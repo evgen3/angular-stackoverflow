@@ -14,6 +14,9 @@
   >
     <mat-card-title [innerHTML]="answer.author.name"></mat-card-title>
     <mat-card-subtitle>{{ answer.creationDate.toLocaleString() }}</mat-card-subtitle>
-    <mat-card-content [innerHTML]="answer.body"></mat-card-content>
+    <mat-card-content
+      class="content"
+      [innerHTML]="answer.body"
+    ></mat-card-content>
   </mat-card>
 </div>

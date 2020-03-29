@@ -9,6 +9,7 @@ import { Result } from '../search.service';
 })
 export class ResultsComponent implements OnInit {
   @Input() results: Result[];
+  @Input() disabled = false;
   @Output() authorClick = new EventEmitter<Author>();
   @Output() questionClick = new EventEmitter<Result>();
   @Output() tagClick = new EventEmitter<string>();
