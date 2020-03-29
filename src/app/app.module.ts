@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
+import { httpInterceptorProviders } from './http-interceptors';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -56,7 +57,11 @@ import { InfoComponent } from './search/info/info.component';
     MatBadgeModule,
     MatBottomSheetModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    httpInterceptorProviders
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
