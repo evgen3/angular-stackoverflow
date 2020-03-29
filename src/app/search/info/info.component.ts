@@ -17,7 +17,10 @@ export class InfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchService.getResults(this.data).subscribe(results => {
+    this.searchService.getResults({
+      ...this.data,
+      sort: 'votes'
+    }).subscribe(results => {
       this.results = results;
       this.loading = false;
       this.changeDetectorRef.detectChanges();

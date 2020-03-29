@@ -18,10 +18,11 @@ export interface SearchOptions {
   query?: string;
   tag?: string;
   author?: Author;
+  sort?: string;
 }
 
 const filter = '!*7PYFiX04qF206j0aQZ)4CtQrFbC';
-const sort = 'relevance';
+const defaultSort = 'relevance';
 const path = '/search/advanced';
 
 @Injectable({
@@ -33,17 +34,17 @@ export class SearchService {
     private apiService: ApiService
   ) { }
 
-  getResults({ query, tag, author }: SearchOptions) {
+  getResults({ query, tag, author, sort }: SearchOptions) {
     const { baseUrl, site, pageSize } = this.apiService;
     const url = `${baseUrl}${path}`;
     const params = {
       title: query ?? '',
       tagged: tag ?? '',
       user: author?.id?.toString() ?? '',
+      sort: sort ?? defaultSort,
       pagesize: pageSize.toString(),
       site,
       filter,
-      sort,
     };
 
     return this.http
