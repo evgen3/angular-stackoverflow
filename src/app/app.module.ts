@@ -26,6 +26,7 @@ import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './search/results/results.component';
 import { QuestionComponent } from './question/question.component';
 import { InfoComponent } from './search/info/info.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { InfoComponent } from './search/info/info.component';
     SearchComponent,
     ResultsComponent,
     QuestionComponent,
-    InfoComponent
+    InfoComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
