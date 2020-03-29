@@ -39,43 +39,48 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParamMap.pipe(
-      map(params => params.get(queryParamName) ?? '')
-    ).subscribe(query => {
-      this.searchForm.controls.query.setValue(query);
-      this.search(query);
-    });
+    this.route.queryParamMap
+      .pipe(
+        map(params => params.get(queryParamName) ?? '')
+      )
+      .subscribe(query => {
+        this.searchForm.controls.query.setValue(query);
+        this.search(query);
+      });
   }
 
   search(query: string) {
     this.results = [];
     this.searching = true;
 
-    of(query).pipe(
-      switchMap(() => {
-        if (query === this.searchService.cachedQuery) {
-          return of(this.searchService.cachedResults);
+    of(query)
+      .pipe(
+        switchMap(() => {
+          if (query === this.searchService.cachedQuery) {
+            return of(this.searchService.cachedResults);
+          }
+
+          if (query) {
+            return of(query)
+              .pipe(
+                debounceTime(debouncePeriod),
+                distinctUntilChanged(),
+                switchMap(() => this.searchService.getResults({ query }))
+              );
+          }
+
+          return of([]);
+        })
+      )
+      .subscribe(results => {
+        this.searchService.setCached(query, results);
+        this.results = results;
+        this.searching = false;
+
+        if (query && !results.length) {
+          this.notifyService.showError(notFoundMessage);
         }
-
-        if (query) {
-          return of(query).pipe(
-            debounceTime(debouncePeriod),
-            distinctUntilChanged(),
-            switchMap(() => this.searchService.getResults({ query }))
-          );
-        }
-
-        return of([]);
-      })
-    ).subscribe(results => {
-      this.searchService.setCached(query, results);
-      this.results = results;
-      this.searching = false;
-
-      if (query && !results.length) {
-        this.notifyService.showError(notFoundMessage);
-      }
-    });
+      });
   }
 
   showInfo(data: SearchOptions) {
