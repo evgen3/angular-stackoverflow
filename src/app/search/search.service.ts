@@ -33,12 +33,13 @@ export class SearchService {
   ) { }
 
   getResults({ query, tag, author }: SearchOptions) {
-    const { baseUrl, site } = this.apiService;
+    const { baseUrl, site, pageSize } = this.apiService;
     const url = `${baseUrl}${path}`;
     const params = {
       title: query ?? '',
       tagged: tag ?? '',
       user: author?.id?.toString() ?? '',
+      pagesize: pageSize.toString(),
       site,
       filter,
     };

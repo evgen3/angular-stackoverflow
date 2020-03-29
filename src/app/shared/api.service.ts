@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   baseUrl = '//api.stackexchange.com/2.2';
   site = 'stackoverflow';
+  pageSize = 20;
   constructor() { }
 }

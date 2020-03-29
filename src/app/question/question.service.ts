@@ -25,9 +25,14 @@ export class QuestionService {
   ) { }
 
   getAnswers(id: number) {
-    const { baseUrl, site } = this.apiService;
+    const { baseUrl, site, pageSize } = this.apiService;
     const url = `${baseUrl}${getPath(id)}`;
-    const params = { site, filter, sort };
+    const params = {
+      pagesize: pageSize.toString(),
+      site,
+      filter,
+      sort
+    };
 
     return this.http
       .get(url, { params })
