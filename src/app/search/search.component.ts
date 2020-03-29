@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 import { of } from 'rxjs';
 import { map, switchMap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import { Author } from '../shared/author';
+import { NotifyService } from '../shared/notify.service';
 import { SearchService, Result, SearchOptions } from './search.service';
 import { InfoComponent } from './info/info.component';
 
 const queryParamName = 'query';
 const debouncePeriod = 1000;
-const snackBarDuration = 2000;
 
 const notFoundMessage = 'Not found';
 const noAnswersMessage = 'No answers';
@@ -35,7 +34,7 @@ export class SearchComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private searchService: SearchService,
-    private snackBar: MatSnackBar,
+    private notifyService: NotifyService,
     private bottomSheet: MatBottomSheet
   ) { }
 
@@ -74,14 +73,8 @@ export class SearchComponent implements OnInit {
       this.searching = false;
 
       if (query && !results.length) {
-        this.showSnackBar(notFoundMessage);
+        this.notifyService.showError(notFoundMessage);
       }
-    });
-  }
-
-  showSnackBar(message: string) {
-    this.snackBar.open(message, null, {
-      duration: snackBarDuration
     });
   }
 
@@ -108,7 +101,7 @@ export class SearchComponent implements OnInit {
     if (answers) {
       this.router.navigate(['/questions', question.id]);
     } else {
-      this.showSnackBar(noAnswersMessage);
+      this.notifyService.show(noAnswersMessage);
     }
   }
 
