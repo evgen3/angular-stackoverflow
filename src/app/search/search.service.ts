@@ -21,6 +21,7 @@ export interface SearchOptions {
 }
 
 const filter = '!*7PYFiX04qF206j0aQZ)4CtQrFbC';
+const sort = 'relevance';
 const path = '/search/advanced';
 
 @Injectable({
@@ -42,6 +43,7 @@ export class SearchService {
       pagesize: pageSize.toString(),
       site,
       filter,
+      sort,
     };
 
     return this.http
