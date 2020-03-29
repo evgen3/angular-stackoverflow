@@ -1,4 +1,15 @@
-<mat-toolbar>Stack Overflow</mat-toolbar>
+<mat-toolbar>
+  Stack Overflow
+  <button
+    *ngIf="logoutVisible"
+    class="logout"
+    color="primary"
+    mat-raised-button
+    (click)="onLogoutClick()"
+  >
+    Log out
+  </button>
+</mat-toolbar>
 <div class="layout">
   <router-outlet></router-outlet>
 </div>

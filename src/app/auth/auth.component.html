@@ -1,26 +1,10 @@
-<form class="app-auth">
-  <mat-card>
-    <mat-form-field class="field" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput>
-    </mat-form-field>
-    <mat-form-field class="field" appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput>
-    </mat-form-field>
-    <div class="forgot">
-      <a href="#">Forgot password?</a>
-    </div>
-    <button
-      class="button"
-      type="submit"
-      color="primary"
-      mat-raised-button
-    >
-      Log in
-    </button>
-  </mat-card>
-  <div class="sign-up">
-    <a href="#">Sign up</a>
-  </div>
-</form>
+<div class="app-auth">
+  <button
+    class="button"
+    color="primary"
+    mat-raised-button
+    (click)="onClickButton()"
+  >
+    Log in
+  </button>
+</div>
