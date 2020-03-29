@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
 
@@ -8,7 +9,10 @@ describe('AuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthComponent ]
+      declarations: [AuthComponent],
+      imports: [
+        RouterModule.forRoot([])
+      ]
     })
     .compileComponents();
   }));
